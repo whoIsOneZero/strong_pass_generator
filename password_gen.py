@@ -2,7 +2,7 @@
 import random
 
 PASSWORD_LENGTH = 16
-num_to_select = 4
+NUM_TO_SELECT = 4
 
 number_strings = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
@@ -15,21 +15,16 @@ uppercase_alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
 symbols = ['!', '@', '#', '$', '%', '^', '&', '*',
            '(', ')', '-', '_', '=', '+', '[', ']', '{', '}', '|', ':', ';', '"', "'", '<', '>', ',', '.', '?']
 
-rand_1 = random.sample(number_strings, num_to_select)
-rand_2 = random.sample(lowercase_alpha, num_to_select)
-rand_3 = random.sample(uppercase_alpha, num_to_select)
-rand_4 = random.sample(symbols, num_to_select)
-
-char_lists = [rand_1, rand_2, rand_3, rand_4]
+categories = [number_strings, lowercase_alpha, uppercase_alpha, symbols]
+selected_chars = [random.sample(category, NUM_TO_SELECT)
+                  for category in categories]
 
 generated_password = []
+for sublist in selected_chars:
+    for char in sublist:
+        generated_password.append(char)
 
-while len(generated_password) < 16:
-    random_list = random.choice(char_lists)
-
-    random_item = random.choice(random_list)
-
-    generated_password.append(random_item)
+random.shuffle(generated_password)
 
 
 password_string = ''.join(generated_password)
